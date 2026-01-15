@@ -1,6 +1,315 @@
-<h1>
-    Welcome to Foxy's Website
-</h1>
-<p>
-    Coming soon just need to learn HTML rq
-</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Foxy — Portfolio</title>
+  <meta name="description" content="Portfolio of Foxy — web projects, stickers, and contact." />
+
+  <!--
+    AVATAR INSTRUCTIONS:
+    - Best option: upload your Discord avatar image to the repo at /avatar.png (branch: main).
+      The page will use https://raw.githubusercontent.com/FloofyFoxyy/mochifox.art/main/avatar.png as fallback.
+    - If you want the page to load directly from Discord, replace the empty string in `discordAvatarUrl`
+      below with a valid Discord CDN avatar URL (e.g. https://cdn.discordapp.com/avatars/<USER_ID>/<AVATAR_HASH>.png).
+      Note: retrieving the avatar hash programmatically requires Discord authentication; providing the CDN URL directly works.
+  -->
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#ff7aa2;
+      --accent-2:#6ee7b7;
+      --text:#e6eef6;
+      --radius:12px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#071025 0%, var(--bg) 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:32px;
+    }
+
+    .container{max-width:980px;margin:0 auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+    .logo{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:12px;display:inline-grid;place-items:center;font-weight:800;color:#051017;font-size:20px;box-shadow:0 6px 18px rgba(0,0,0,0.4), inset 0 -3px 8px rgba(0,0,0,0.12)}
+    nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600;font-size:14px}
+
+    .hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin-bottom:28px}
+    .hero-inner{background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:var(--radius);padding:20px;box-shadow:0 6px 24px rgba(0,0,0,0.45);display:flex;gap:16px;align-items:center}
+    .avatar-wrap{width:96px;height:96px;border-radius:14px;overflow:hidden;flex-shrink:0;border:2px solid rgba(255,255,255,0.03);background:#071426;display:grid;place-items:center}
+    .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+    .hero-content h1{margin:0 0 6px 0;font-size:26px;letter-spacing:-0.02em}
+    .muted{color:var(--muted)}
+    .cta{margin-top:12px;display:flex;gap:12px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;color:#051017;background:var(--accent);box-shadow:0 6px 18px rgba(0,0,0,0.35)}
+    .btn.secondary{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.06);box-shadow:none;font-weight:600}
+
+    section.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:28px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03)}
+    .card h3{margin:0 0 8px 0}
+    .projects{display:grid;gap:12px}
+    .project{display:flex;gap:12px;align-items:center}
+    .project-thumb{width:72px;height:48px;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent-2));flex-shrink:0;box-shadow:inset 0 -6px 18px rgba(0,0,0,0.16)}
+
+    .social-box{background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .social-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .social-list a{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--text);text-decoration:none;font-weight:600;font-size:13px}
+
+    .stickers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px}
+    .sticker{background:#071426;border-radius:10px;padding:10px;border:1px solid rgba(255,255,255,0.03);display:grid;place-items:center}
+    .sticker img{max-width:100%;max-height:140px;object-fit:contain;border-radius:8px}
+
+    footer{margin-top:36px;text-align:center;color:var(--muted);font-size:13px}
+
+    @media(min-width:720px){.hero-content h1{font-size:32px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a class="brand" href="#">
+        <div class="logo">FX</div>
+        <div>
+          <div style="font-weight:800">Foxy</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:2px">Designer & Front‑end Developer</div>
+        </div>
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#stickers">Stickers</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero-inner">
+          <div class="avatar-wrap" id="avatarWrap" title="Avatar">
+            <!-- avatar image is injected by script -->
+            <img id="avatarImg" alt="Foxy avatar" src="" />
+          </div>
+
+          <div class="hero-content">
+            <h1 id="hero-heading">Hi — I'm Foxy. I build delightful web experiences.</h1>
+            <p class="muted">Moderator: <strong>r/CherryIsland</strong>, <strong>r/SLGreddit</strong><br>
+            Formerly moderator for Hugo11 and Jelly on Discord.</p>
+
+            <div class="cta">
+              <a class="btn" href="#projects">See my work</a>
+              <a class="btn secondary" href="#contact">Get in touch</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="card" aria-labelledby="about-heading" style="margin-bottom:18px">
+        <h2 id="about-heading">About me</h2>
+        <p class="muted">I'm a hobbyist turned creator who enjoys turning ideas into interactive websites. I like thoughtful UI, micro-interactions, and clean, maintainable code. I also enjoy photography and pixel art in my spare time.</p>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-heading" style="margin-bottom:18px">
+        <h2 id="projects-heading" style="margin-bottom:12px">Projects</h2>
+
+        <div class="cards projects" role="list">
+          <article class="card project" role="listitem">
+            <div class="project-thumb" aria-hidden="true"></div>
+            <div>
+              <h3 style="margin:0 0 6px 0">Mochi Recipes (demo)</h3>
+              <div class="muted">A playful recipe gallery built with HTML & CSS — responsive and accessible.</div>
+              <div style="margin-top:8px"><a class="btn" href="#" style="padding:8px 10px;font-size:13px">View</a></div>
+            </div>
+          </article>
+
+          <article class="card project" role="listitem">
+            <div class="project-thumb" aria-hidden="true"></div>
+            <div>
+              <h3 style="margin:0 0 6px 0">Portfolio Template</h3>
+              <div class="muted">A lightweight portfolio template with clean typography and simple components.</div>
+              <div style="margin-top:8px"><a class="btn" href="#" style="padding:8px 10px;font-size:13px">Live</a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="stickers" class="card" aria-labelledby="stickers-heading" style="margin-bottom:18px">
+        <h2 id="stickers-heading">Stickers</h2>
+        <p class="muted">All images in the repository folder /stickers will appear here. Add PNG/WebP/JPG files to that folder on branch <code>main</code>.</p>
+
+        <div id="stickersGrid" class="stickers-grid" aria-live="polite">
+          <!-- stickers will be injected here -->
+        </div>
+
+        <div id="stickersStatus" class="muted" style="margin-top:10px"></div>
+      </section>
+
+      <section id="social" class="card" aria-labelledby="social-heading" style="margin-bottom:18px">
+        <h2 id="social-heading">Social links</h2>
+        <p class="muted">Add your links to the <code>socialLinks</code> array in the page script (below) and they will render here.</p>
+
+        <div class="social-box">
+          <div id="socialLinksContainer" class="social-list" aria-live="polite">
+            <!-- social links injected here -->
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="card" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact</h2>
+        <p class="muted">Want to work together or just say hi? Send me a message.</p>
+
+        <form style="margin-top:12px" action="mailto:your-email@example.com" method="post" enctype="text/plain" onsubmit="alert('This will open your mail app. You can also copy the email address below.');">
+          <label style="display:block;margin-bottom:8px;font-size:13px;color:var(--muted)">
+            Your message
+            <textarea name="message" rows="4" style="width:100%;margin-top:6px;border-radius:8px;padding:10px;background:#071426;color:var(--text);border:1px solid rgba(255,255,255,0.03)"></textarea>
+          </label>
+          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+            <button class="btn" type="submit">Email me</button>
+            <a class="btn secondary" href="mailto:your-email@example.com">your-email@example.com</a>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div>Built by Foxy • <a style="color:var(--muted);text-decoration:underline" href="https://github.com/FloofyFoxyy/mochifox.art">Source</a></div>
+      <div style="margin-top:6px">Tip: upload stickers to the /stickers folder, and add your social links in the page script.</div>
+    </footer>
+  </div>
+
+  <script>
+    // CONFIG - edit these values as needed
+    const owner = 'FloofyFoxyy';
+    const repo = 'mochifox.art';
+    const branch = 'main';
+    const stickersPath = 'stickers'; // folder in the repo that will contain sticker images
+
+    // To use a Discord CDN avatar directly, place the CDN URL here:
+    // e.g. 'https://cdn.discordapp.com/avatars/<USER_ID>/<AVATAR_HASH>.png'
+    // If empty, we will attempt to load /avatar.png from the repository as a fallback.
+    const discordAvatarUrl = '';
+
+    // Social links: edit these to add/remove links. label: text shown, href: URL
+    const socialLinks = [
+      // Example:
+      // { label: 'GitHub', href: 'https://github.com/FloofyFoxyy' },
+      // { label: 'Reddit', href: 'https://www.reddit.com/user/YourRedditUsername' },
+    ];
+
+    // ---------- Avatar loading ----------
+    (function loadAvatar() {
+      const avatarImg = document.getElementById('avatarImg');
+      const avatarWrap = document.getElementById('avatarWrap');
+
+      // fallback raw.githubusercontent URL for avatar.png in the repo
+      const rawAvatar = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/avatar.png`;
+
+      // decide which to use
+      const srcToUse = discordAvatarUrl || rawAvatar;
+
+      avatarImg.src = srcToUse;
+      avatarImg.alt = "Foxy's avatar";
+
+      // if image fails to load, replace with text initial
+      avatarImg.addEventListener('error', () => {
+        avatarImg.style.display = 'none';
+        const fallback = document.createElement('div');
+        fallback.style.color = '#051017';
+        fallback.style.background = 'linear-gradient(135deg,var(--accent),var(--accent-2))';
+        fallback.style.width = '100%';
+        fallback.style.height = '100%';
+        fallback.style.display = 'grid';
+        fallback.style.placeItems = 'center';
+        fallback.style.fontWeight = '800';
+        fallback.style.fontSize = '28px';
+        fallback.textContent = 'F';
+        avatarWrap.appendChild(fallback);
+      });
+    })();
+
+    // ---------- Render social links ----------
+    (function renderSocialLinks() {
+      const container = document.getElementById('socialLinksContainer');
+      if (!socialLinks || socialLinks.length === 0) {
+        container.innerHTML = '<div class="muted">No links yet — add them to the <code>socialLinks</code> array in the script.</div>';
+        return;
+      }
+      container.innerHTML = '';
+      for (const item of socialLinks) {
+        const a = document.createElement('a');
+        a.href = item.href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = item.label;
+        container.appendChild(a);
+      }
+    })();
+
+    // ---------- Stickers gallery (uses GitHub Contents API) ----------
+    (function loadStickers() {
+      const grid = document.getElementById('stickersGrid');
+      const status = document.getElementById('stickersStatus');
+
+      const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${stickersPath}?ref=${branch}`;
+
+      fetch(apiUrl)
+        .then(response => {
+          if (response.status === 404) {
+            throw new Error('Stickers folder not found (create a folder named "stickers" in the repo).');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (!Array.isArray(data) || data.length === 0) {
+            status.textContent = 'No stickers found in the stickers folder.';
+            return;
+          }
+
+          const images = data.filter(item => {
+            // include typical image file extensions
+            return item.type === 'file' && /\.(png|jpe?g|webp|gif|svg)$/i.test(item.name);
+          });
+
+          if (images.length === 0) {
+            status.textContent = 'No image files found in the stickers folder.';
+            return;
+          }
+
+          // clear status
+          status.textContent = '';
+
+          for (const imgMeta of images) {
+            const card = document.createElement('div');
+            card.className = 'sticker';
+
+            const img = document.createElement('img');
+            img.src = imgMeta.download_url;
+            img.alt = imgMeta.name;
+            img.loading = 'lazy';
+
+            card.appendChild(img);
+            grid.appendChild(card);
+          }
+        })
+        .catch(err => {
+          status.textContent = 'Unable to load stickers: ' + err.message;
+        });
+    })();
+  </script>
+</body>
+</html>
