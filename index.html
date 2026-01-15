@@ -19,22 +19,52 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
+    /* Color system
+       Primary accents (requested): #ffcdfe, #cdffd9, #fcffa8
+       The page uses those colors as the primary accents and defines darker/saturated
+       variants for dark mode via prefers-color-scheme.
+    */
+
     :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --muted:#9aa4b2;
-      --accent:#ff7aa2;
-      --accent-2:#6ee7b7;
-      --text:#e6eef6;
-      --radius:12px;
-      color-scheme: dark;
+      /* requested primary accents (used in light mode and as the canonical palette) */
+      --accent1: #ffcdfe; /* pink */
+      --accent2: #cdffd9; /* mint */
+      --accent3: #fcffa8; /* yellow */
+
+      /* expose convenient names used throughout the stylesheet */
+      --accent: var(--accent1);
+      --accent-2: var(--accent2);
+      --accent-3: var(--accent3);
+
+      /* light-mode surface/text colors */
+      --bg: #fbfbfd;
+      --card: #ffffff;
+      --text: #0b1220;
+      --muted: #55606a;
+      --radius: 12px;
+      color-scheme: light;
     }
+
+    /* Dark-mode variants: slightly deeper/desaturated accents and dark surfaces */
+    @media (prefers-color-scheme: dark) {
+      --bg: #071428;
+      --card: #0b1220;
+      --text: #e6eef6;
+      --muted: #9aa4b2;
+      --radius: 12px;
+
+      /* darker/saturated variants for the requested palette to work well on dark backgrounds */
+      --accent: #da8fe0;   /* darker pink */
+      --accent-2: #8ddb9f; /* darker mint */
+      --accent-3: #e8e074; /* softer yellow */
+    }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
       font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#071025 0%, var(--bg) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.02), var(--bg));
       color:var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
@@ -44,33 +74,43 @@
 
     .container{max-width:980px;margin:0 auto;padding:24px}
     header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+
     .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
-    .logo{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:12px;display:inline-grid;place-items:center;font-weight:800;color:#051017;font-size:20px;box-shadow:0 6px 18px rgba(0,0,0,0.4), inset 0 -3px 8px rgba(0,0,0,0.12)}
+    .logo{
+      width:56px;height:56px;border-radius:12px;display:inline-grid;place-items:center;font-weight:800;color:var(--text);font-size:20px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      box-shadow:0 6px 18px rgba(0,0,0,0.08), inset 0 -3px 8px rgba(0,0,0,0.06);
+    }
+
     nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600;font-size:14px}
 
     .hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin-bottom:28px}
-    .hero-inner{background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:var(--radius);padding:20px;box-shadow:0 6px 24px rgba(0,0,0,0.45);display:flex;gap:16px;align-items:center}
-    .avatar-wrap{width:96px;height:96px;border-radius:14px;overflow:hidden;flex-shrink:0;border:2px solid rgba(255,255,255,0.03);background:#071426;display:grid;place-items:center}
+    .hero-inner{
+      background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+      border-radius:var(--radius);padding:20px;box-shadow:0 6px 24px rgba(0,0,0,0.06);display:flex;gap:16px;align-items:center
+    }
+
+    .avatar-wrap{width:96px;height:96px;border-radius:14px;overflow:hidden;flex-shrink:0;border:2px solid rgba(0,0,0,0.04);background:var(--card);display:grid;place-items:center}
     .avatar-wrap img{width:100%;height:100%;object-fit:cover;display:block}
     .hero-content h1{margin:0 0 6px 0;font-size:26px;letter-spacing:-0.02em}
     .muted{color:var(--muted)}
     .cta{margin-top:12px;display:flex;gap:12px}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;color:#051017;background:var(--accent);box-shadow:0 6px 18px rgba(0,0,0,0.35)}
-    .btn.secondary{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.06);box-shadow:none;font-weight:600}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;color:var(--text);background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 8px 22px rgba(0,0,0,0.08)}
+    .btn.secondary{background:transparent;color:var(--text);border:1px solid rgba(0,0,0,0.06);box-shadow:none;font-weight:600}
 
     section.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:28px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.01));border-radius:12px;padding:16px;border:1px solid rgba(0,0,0,0.04)}
     .card h3{margin:0 0 8px 0}
     .projects{display:grid;gap:12px}
     .project{display:flex;gap:12px;align-items:center}
-    .project-thumb{width:72px;height:48px;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent-2));flex-shrink:0;box-shadow:inset 0 -6px 18px rgba(0,0,0,0.16)}
+    .project-thumb{width:72px;height:48px;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent-2));flex-shrink:0;box-shadow:inset 0 -6px 18px rgba(0,0,0,0.06)}
 
-    .social-box{background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .social-box{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.04)}
     .social-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .social-list a{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--text);text-decoration:none;font-weight:600;font-size:13px}
+    .social-list a{padding:8px 10px;border-radius:8px;background:linear-gradient(90deg,var(--accent-2),var(--accent-3));color:var(--text);text-decoration:none;font-weight:600;font-size:13px}
 
     .stickers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px}
-    .sticker{background:#071426;border-radius:10px;padding:10px;border:1px solid rgba(255,255,255,0.03);display:grid;place-items:center}
+    .sticker{background:var(--card);border-radius:10px;padding:10px;border:1px solid rgba(0,0,0,0.04);display:grid;place-items:center}
     .sticker img{max-width:100%;max-height:140px;object-fit:contain;border-radius:8px}
 
     footer{margin-top:36px;text-align:center;color:var(--muted);font-size:13px}
@@ -173,10 +213,10 @@
         <h2 id="contact-heading">Contact</h2>
         <p class="muted">Want to work together or just say hi? Send me a message.</p>
 
-        <form style="margin-top:12px" action="mailto:your-email@example.com" method="post" enctype="text/plain" onsubmit="alert('This will open your mail app. You can also copy the email address below.');">
+        <form style="margin-top:12px" action="mailto:your-email@example.com" method="post" enctype="text/plain" onsubmit="alert('This will open your mail app. You can also copy the email address below. You can also copy the email address below.');">
           <label style="display:block;margin-bottom:8px;font-size:13px;color:var(--muted)">
             Your message
-            <textarea name="message" rows="4" style="width:100%;margin-top:6px;border-radius:8px;padding:10px;background:#071426;color:var(--text);border:1px solid rgba(255,255,255,0.03)"></textarea>
+            <textarea name="message" rows="4" style="width:100%;margin-top:6px;border-radius:8px;padding:10px;background:var(--card);color:var(--text);border:1px solid rgba(0,0,0,0.04)"></textarea>
           </label>
           <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
             <button class="btn" type="submit">Email me</button>
@@ -246,7 +286,7 @@
     (function renderSocialLinks() {
       const container = document.getElementById('socialLinksContainer');
       if (!socialLinks || socialLinks.length === 0) {
-        container.innerHTML = '<div class="muted">No links yet — add them to the <code>socialLinks</code> array in the script.</div>';
+        container.innerHTML = '<div class="muted">No links yet — add them to the <code>socialLinks</code> array in the script.</div>'; 
         return;
       }
       container.innerHTML = '';
